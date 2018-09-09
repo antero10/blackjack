@@ -46,3 +46,6 @@ class Graphics(object):
 
     def renderScore(self):
         pass
+
+    def getValueInput(self, text):
+        return raw_input(text + os.linesep)

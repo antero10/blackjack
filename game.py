@@ -1,5 +1,6 @@
 import random
 import os
+import time
 import numpy as np
 
 from base import Base
@@ -36,9 +37,6 @@ class Game(Graphics, Base):
             self.cards.remove(discartedCard)
         pass
 
-    def getPlayerName(self):
-        return raw_input("Players name?:" + os.linesep)
-
     def render(self, player):
         player.render()
         self.table.render()
@@ -53,11 +51,24 @@ class Game(Graphics, Base):
         self.removeCardFromDeck(card)
         pass
 
-    def stay(self):
+    '''
+        Stay action, in this action the table/delear plays
+    '''
+
+    def stay(self, player):
         card = self.cards[0] # The the first card, that's how deales take cards from the deck
-        self.table.addCard(card)
-        self.removeCardFromDeck(card)
-        pass
+        tableScore = self.table.getScore()
+        while tableScore <= 21 and tableScore < player.getScore():
+            card = self.cards[0]
+            self.table.addCard(card)
+            self.removeCardFromDeck(card)
+            self.render(player)
+            tableScore = self.table.getScore()
+            time.sleep(2)
+        if tableScore < 21 and (tableScore > player.getScore()):
+            self.endGame('You lose!')
+        return 
+
 
 
     def nextMove(self, player):
@@ -66,49 +77,56 @@ class Game(Graphics, Base):
              self.hit(player)
              return
         elif nextMove == 2:
-            self.stay()
+            self.stay(player)
             pass
         elif nextMove != 1 or nextMove != 2:
             print("Incorrect option, please select a correct option:" + os.linesep)
             self.nextMove()
         pass
 
-    def getWinner(self, player, table):
+    def getWinner(self, playerScore, tableScore):
 
-        if (player.getScore() < 21 and (player.getScore() > table.getScore())) or table.getScore() > 21:
-            self.fullScreenText('Congratulations %s, You\'re the Winner' % player.name)
+        if (playerScore < 21 and (playerScore > tableScore)) or tableScore > 21 or playerScore == 21:
+            self.endGame('Winner Winner Chicken dinner')
         else:
-            self.fullScreenText('You lose!')
-            option = int(raw_input("Try Again? 1) Yes, 2) No:" + os.linesep))
-            if (option == 1):
-                self.init()
-            else:
-                return
+            self.endGame('You lose!')
 
+    def endGame(self, text):
+        self.fullScreenText(text)
+        self.table.cards = [] # Reset game
+        option = self.renderList(['1) Try Again', '2) Exit'])
+        if (option == 1):
+            self.init()
+        else:
+            return
 
     def startGame(self, player, cards):
         isPlayable = True
         isFirstGame = True
         while isPlayable:
-            print('Score total: %i' % (self.score))
+            playerScore = player.getScore()
+            tableScore = self.table.getScore()
             if (isFirstGame):
                 player.cards = cards[0:2] # get the first 2 cards
+                self.table.cards = cards[2:3]
                 for card in player.cards:
+                    self.removeCardFromDeck(card)
+                for card in self.table.cards:
                     self.removeCardFromDeck(card)
                 isFirstGame = False
 
             self.render(player)
 
-            if (player.getScore() > 21 or self.table.getScore() > 21):
+            if (playerScore >= 21 or tableScore >= 21):
                 # It means the game is finish
                 isPlayable = False
-                self.getWinner(player, self.table)
+                self.getWinner(playerScore, tableScore)
             else:
                 self.nextMove(player);
         pass
 
     def init(self):
-        player_name = self.getPlayerName()
+        player_name = self.getValueInput('Insert Player Name: ')
         self.player = Player(1, player_name)
         self.cards = self.getCards()
         random.shuffle(self.cards)
