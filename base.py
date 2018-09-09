@@ -6,6 +6,7 @@ class Base(object):
 
     def __init__(self):
         pass
+
     '''
         GetScore function, Sum all the number of the cards
     '''

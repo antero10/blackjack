@@ -3,7 +3,7 @@
 
 ## Lab 1: *Blackjack*
 
-For this lab I used `python` as programming language, is a nice and clean language mostly known for the syntax and also cause is really powerful for math programs. 
+For this lab I used `python` as programming language, is a nice and clean language mostly known for the syntax and also cause is really powerful for math programs.
 
 
 ## Description:
@@ -29,3 +29,4 @@ After that just need to run the `game` script like `python game.py`
 
 Gustavo Sanchez.
 https://github.com/antero10
+https://github.com/antero10/blackjack
