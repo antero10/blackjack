@@ -28,8 +28,8 @@ After that just need to run the `game` script like `python game.py`
 
 
 
+---
 
-Gustavo Sanchez.
-https://github.com/antero10
+[Gustavo Sanchez](https://github.com/antero10)
 
 https://github.com/antero10/blackjack
