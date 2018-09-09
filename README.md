@@ -22,6 +22,8 @@ The game is divided in different classes:
 
 First you need to install all the dependencies for that you can run `pip install --user -r requirements.txt`.
 
+Follow this [link](https://github.com/BurntSushi/nfldb/wiki/Python-&-pip-Windows-installation) to know how to install pip libraries on Windows
+
 After that just need to run the `game` script like `python game.py`
 
 
