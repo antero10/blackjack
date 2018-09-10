@@ -1,6 +1,7 @@
 import random
 import os
 import time
+import sys
 import numpy as np
 
 from base import Base
@@ -67,7 +68,7 @@ class Game(Graphics, Base):
             time.sleep(2)
         if tableScore < 21 and (tableScore > player.getScore()):
             self.endGame('You lose!')
-        return 
+        return
 
 
 
@@ -98,6 +99,7 @@ class Game(Graphics, Base):
         if (option == 1):
             self.init()
         else:
+            sys.exit()
             return
 
     def startGame(self, player, cards):

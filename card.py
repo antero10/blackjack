@@ -45,10 +45,10 @@ class Card(Graphics):
     def getCardValue(self, number):
         if number == 1:
             return 11
-        if number > 10:
-            return 10
-        elif number <= 10 or number >= 2:
+        if number >= 2 and number < 10:
             return number
+        if number >= 10:
+            return 10
 
     def __str__(self):
         return "Card: %s, Type: %s" % (self.number, self.type)
