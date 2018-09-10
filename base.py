@@ -12,7 +12,7 @@ class Base(object):
     '''
     def getScore(self, cards):
         if len(cards) > 1:
-            return reduce((lambda x, y: x + y), list(map(lambda x: x.number, cards)))
+            return reduce((lambda x, y: x + y), list(map(lambda x: x.value, cards)))
         if len(cards) == 1:
-            return cards[0].number
+            return cards[0].value
         return 0

@@ -9,7 +9,8 @@ class Card(Graphics):
     '''
     def __init__(self, number, type_id):
         self.types = ['clubs', 'diamonds', 'hearts', 'spades']
-        self.number = self.getCardValue(number)
+        self.number = number
+        self.value = self.getCardValue(number)
         self.type = self.types[type_id]
         self.Arts = Arts()
         super(Card, self).__init__()
@@ -44,10 +45,10 @@ class Card(Graphics):
     def getCardValue(self, number):
         if number == 1:
             return 11
-        elif number >= 2 and number <= 10:
-            return number
-        elif number > 10:
+        if number > 10:
             return 10
+        elif number <= 10 or number >= 2:
+            return number
 
     def __str__(self):
         return "Card: %s, Type: %s" % (self.number, self.type)
